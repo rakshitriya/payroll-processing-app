@@ -11,3 +11,6 @@ run {
 }
 ```
 
+A sample output is:
+
+<img width="1328" alt="output" src="https://github.com/user-attachments/assets/b0a9d6f3-4031-407a-8a41-53a5e0ffef31">
