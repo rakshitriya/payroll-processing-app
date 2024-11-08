@@ -7,20 +7,20 @@ import java.util.Map;
 import org.dataorb.entities.Employee;
 import org.dataorb.entities.EmployeeEvent;
 import org.dataorb.exceptions.employee.EmployeeNotFoundException;
-import org.dataorb.repository.EmployeeRepository;
-import org.dataorb.repository.EventRepository;
+import org.dataorb.repository.IEmployeeRepository;
+import org.dataorb.repository.IEventRepository;
 import org.dataorb.response.FinancialReport;
 import org.dataorb.response.SalaryReport;
 import org.dataorb.response.YearlyEventReport;
 
 public class DisplayService {
-    private EmployeeRepository employeeRepository;
-    private EventRepository eventRepository;
-    private EmployeeService employeeService;
-    private PayrollService payrollService;
+    private IEmployeeRepository employeeRepository;
+    private IEventRepository eventRepository;
+    private IEmployeeService employeeService;
+    private IPayrollService payrollService;
 
-    public DisplayService(EmployeeRepository employeeRepository, EventRepository eventRepository, 
-                          EmployeeService employeeService, PayrollService payrollService) {
+    public DisplayService(IEmployeeRepository employeeRepository, IEventRepository eventRepository, 
+                          IEmployeeService employeeService, IPayrollService payrollService) {
         this.employeeRepository = employeeRepository;
         this.eventRepository = eventRepository;
         this.employeeService = employeeService;
@@ -45,13 +45,13 @@ public class DisplayService {
     }
 
     public void displayTotalEmployees(){
-        System.out.println("Total Employees are: "+employeeService.getTotalNumberOfEmployees());
+        System.out.println("\nTotal Employees are: "+employeeService.getTotalNumberOfEmployees());
     }
 
     public void displayMonthlyJoinersReport() {
         try {
             Map<Month, List<Employee>> joinersReport = employeeService.getMonthlyJoinersReport();
-            System.out.println("Monthly Joiners Report:");
+            System.out.println("\nMonthly Joiners Report:");
             for (Map.Entry<Month, List<Employee>> entry : joinersReport.entrySet()) {
                 System.out.println(entry.getKey() + ": " + entry.getValue().size() + " joiners");
             }
@@ -63,7 +63,7 @@ public class DisplayService {
     public void displayMonthlyExitsReport() {
         try {
             Map<Month, List<Employee>> exitsReport = employeeService.getMonthlyExitsReport();
-            System.out.println("Monthly Exits Report:");
+            System.out.println("\nMonthly Exits Report:");
             for (Map.Entry<Month, List<Employee>> entry : exitsReport.entrySet()) {
                 System.out.println(entry.getKey() + ": " + entry.getValue().size() + " exits");
             }
@@ -75,7 +75,7 @@ public class DisplayService {
     public void displayMonthlySalaryReport() {
         try {
             Map<Month, SalaryReport> salaryReport = payrollService.getMonthlySalaryReport();
-            System.out.println("Monthly Salary Report:");
+            System.out.println("\nMonthly Salary Report:");
             for (Map.Entry<Month, SalaryReport> entry : salaryReport.entrySet()) {
                 System.out.println(entry.getKey() + ": Total Salary = " + entry.getValue().getTotalSalary() +
                                    ", Total Employees = " + entry.getValue().getTotalEmployees());

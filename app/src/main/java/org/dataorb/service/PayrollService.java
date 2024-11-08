@@ -70,7 +70,6 @@ public class PayrollService implements IPayrollService {
 
                 for (EmployeeEvent event : events) {
                     if (event.getEventType() == EventType.SALARY) {
-                            System.out.println(event.getEventType());
                             double salary = Double.parseDouble(event.getValue());
                             Month month = event.getEventDate().getMonth();
                             SalaryReport report = salaryReport.computeIfAbsent(month, m -> new SalaryReport());

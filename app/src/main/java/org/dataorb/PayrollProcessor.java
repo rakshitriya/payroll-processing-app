@@ -9,10 +9,14 @@ import org.dataorb.exceptions.employee.EventProcessingException;
 import org.dataorb.exceptions.employee.InvalidRecordFormatException;
 import org.dataorb.parser.IParser;
 import org.dataorb.parser.TxtParser;
+import org.dataorb.repository.IEmployeeRepository;
 import org.dataorb.repository.EmployeeRepository;
 import org.dataorb.repository.EventRepository;
+import org.dataorb.repository.IEventRepository;
 import org.dataorb.service.DisplayService;
 import org.dataorb.service.EmployeeService;
+import org.dataorb.service.IEmployeeService;
+import org.dataorb.service.IPayrollService;
 import org.dataorb.service.PayrollService;
 
 public class PayrollProcessor {
@@ -24,14 +28,14 @@ public class PayrollProcessor {
 
         String filePath = args[0];
 
-        EmployeeRepository employeeRepository = new EmployeeRepository();
-        EventRepository eventRepository = new EventRepository();
+        IEmployeeRepository employeeRepository = new EmployeeRepository();
+        IEventRepository eventRepository = new EventRepository();
 
         IParser parser = new TxtParser();
         List<String> records = parser.parse(filePath);
 
-        PayrollService payrollService = new PayrollService(employeeRepository, eventRepository);
-        EmployeeService employeeService = new EmployeeService(employeeRepository, eventRepository);
+        IPayrollService payrollService = new PayrollService(employeeRepository, eventRepository);
+        IEmployeeService employeeService = new EmployeeService(employeeRepository, eventRepository);
 
         DisplayService displayService = new DisplayService(employeeRepository, eventRepository, employeeService, payrollService);
 
